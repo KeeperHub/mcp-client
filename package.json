@@ -1,0 +1,20 @@
+{
+	"name": "@keeperhub/mcp-client-monorepo",
+	"version": "0.0.0",
+	"private": true,
+	"description": "KeeperHub MCP client foundation (TypeScript + Python).",
+	"license": "Apache-2.0",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/KeeperHub/mcp-client.git"
+	},
+	"scripts": {
+		"build": "pnpm -r build",
+		"test": "pnpm -r test",
+		"type-check": "pnpm -r type-check"
+	},
+	"engines": {
+		"node": ">=20"
+	},
+	"packageManager": "pnpm@9.0.0"
+}

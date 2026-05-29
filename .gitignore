@@ -1,0 +1,24 @@
+# Node / TypeScript
+node_modules/
+dist/
+coverage/
+.turbo/
+.vitest/
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+build/
+*.egg-info/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+
+# Misc
+*.log
+.DS_Store
+.env
+.env.*
+!.env.example
