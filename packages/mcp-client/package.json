@@ -2,6 +2,8 @@
 	"name": "@keeperhub/mcp-client",
 	"version": "0.1.0",
 	"description": "Shared MCP client foundation for KeeperHub agent-framework adapters.",
+	"author": "KeeperHub",
+	"keywords": ["keeperhub", "mcp", "model-context-protocol", "workflow", "web3"],
 	"license": "Apache-2.0",
 	"type": "module",
 	"engines": {

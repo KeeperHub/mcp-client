@@ -10,7 +10,8 @@
 	},
 	"scripts": {
 		"build": "pnpm -r build",
-		"test": "pnpm -r test",
+		"test": "pnpm -r test && pnpm run test:python",
+		"test:python": "cd python && python -m pip install -q -e \".[dev]\" && python -m pytest -q",
 		"type-check": "pnpm -r type-check"
 	},
 	"engines": {
