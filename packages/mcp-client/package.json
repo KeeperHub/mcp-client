@@ -1,6 +1,6 @@
 {
 	"name": "@keeperhub/mcp-client",
-	"version": "0.0.0",
+	"version": "0.1.0",
 	"description": "Shared MCP client foundation for KeeperHub agent-framework adapters.",
 	"license": "Apache-2.0",
 	"type": "module",
@@ -17,11 +17,7 @@
 			"require": "./dist/index.cjs"
 		}
 	},
-	"files": [
-		"dist",
-		"README.md",
-		"LICENSE"
-	],
+	"files": ["dist", "README.md", "LICENSE"],
 	"publishConfig": {
 		"access": "public"
 	},
@@ -38,10 +34,8 @@
 		"build": "tsup",
 		"test": "vitest run",
 		"test:watch": "vitest",
-		"type-check": "tsc --noEmit"
-	},
-	"dependencies": {
-		"@modelcontextprotocol/sdk": "1.29.0"
+		"type-check": "tsc --noEmit",
+		"prepublishOnly": "npm run build"
 	},
 	"devDependencies": {
 		"@types/node": "24.1.0",

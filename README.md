@@ -20,7 +20,7 @@ Both clients implement the same kernel:
 
 ## Status
 
-Early development. Neither package is published yet. The surface is still stabilizing.
+**v0.1.0** — MCP HTTP transport implemented (session bootstrap, `tools/call`, 401/404 re-init, API key helpers). Ready for first publish to npm and PyPI. See [`.github/workflows`](.github/workflows) for release tags (`npm-v*`, `py-v*`).
 
 ## Where the plugins live
 
