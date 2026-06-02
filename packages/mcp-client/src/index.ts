@@ -4,7 +4,6 @@ export {
 	KeeperHubMcpClient,
 	KeeperHubClient,
 	getClient,
-	__resetClientForTests,
 	type CallToolResult,
 	type ClientLogger,
 	type GetClientOptions,
