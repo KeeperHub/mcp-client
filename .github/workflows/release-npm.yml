@@ -1,12 +1,12 @@
 name: release-npm
 
-# Publishes @keeperhub/mcp-client (TypeScript) to npm via trusted publishing (OIDC).
+# Publishes @keeperhub/mcp (TypeScript) to npm via trusted publishing (OIDC).
 # Triggered by an npm release tag, e.g. `git tag npm-v0.1.0 && git push origin npm-v0.1.0`.
 # (Independent of the Python package, which uses py-v* tags / release-pypi.yml.)
 #
 # ONE-TIME SETUP (npm cannot trust a package that doesn't exist yet):
-#   1. Publish v1 manually once: `cd packages/mcp-client && npm publish`.
-#   2. On npmjs.com: package @keeperhub/mcp-client -> Settings -> Trusted Publisher ->
+#   1. Publish v1 manually once: `cd packages/mcp && npm publish`.
+#   2. On npmjs.com: package @keeperhub/mcp -> Settings -> Trusted Publisher ->
 #      GitHub Actions, org "KeeperHub", repo "mcp-client", workflow file "release-npm.yml".
 
 on:
@@ -36,7 +36,7 @@ jobs:
       - name: Ensure npm supports OIDC trusted publishing
         run: npm install -g npm@latest # OIDC requires npm >= 11.5.1
       - run: pnpm install --frozen-lockfile
-      - run: pnpm --filter @keeperhub/mcp-client build
+      - run: pnpm --filter @keeperhub/mcp build
       - name: Publish to npm
-        working-directory: packages/mcp-client
+        working-directory: packages/mcp
         run: npm publish # no token, no --provenance: both handled by trusted publishing

@@ -21,9 +21,9 @@ jobs:
           node-version: 22
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - run: pnpm --filter @keeperhub/mcp-client build
-      - run: pnpm --filter @keeperhub/mcp-client test
-      - run: pnpm --filter @keeperhub/mcp-client type-check
+      - run: pnpm --filter @keeperhub/mcp build
+      - run: pnpm --filter @keeperhub/mcp test
+      - run: pnpm --filter @keeperhub/mcp type-check
 
   python:
     runs-on: ubuntu-latest

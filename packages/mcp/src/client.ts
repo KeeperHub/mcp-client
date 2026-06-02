@@ -59,7 +59,7 @@ export class KeeperHubMcpClient {
 		this.apiKeyKind = classifyApiKey(apiKey);
 		this.baseUrl = options.baseUrl ?? DEFAULT_MCP_URL;
 		this.clientInfo = options.clientInfo ?? {
-			name: "@keeperhub/mcp-client",
+			name: "@keeperhub/mcp",
 			version: "0.1.0",
 		};
 		this.logger = options.logger ?? console;

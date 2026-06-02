@@ -1,5 +1,5 @@
 {
-	"name": "@keeperhub/mcp-client",
+	"name": "@keeperhub/mcp",
 	"version": "0.1.0",
 	"description": "Shared MCP client foundation for KeeperHub agent-framework adapters.",
 	"author": "KeeperHub",
@@ -30,12 +30,12 @@
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/KeeperHub/mcp-client.git",
-		"directory": "packages/mcp-client"
+		"url": "https://github.com/KeeperHub/mcp.git",
+		"directory": "packages/mcp"
 	},
 	"homepage": "https://docs.keeperhub.com",
 	"bugs": {
-		"url": "https://github.com/KeeperHub/mcp-client/issues"
+		"url": "https://github.com/KeeperHub/mcp/issues"
 	},
 	"scripts": {
 		"build": "tsup",
