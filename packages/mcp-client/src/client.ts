@@ -144,7 +144,7 @@ export class KeeperHubMcpClient {
 		this.logger.info?.("[KeeperHub] MCP session established");
 	}
 
-	private async postMcp(body: object): Promise<unknown> {
+	private async postMcp(body: object, attempt = 0): Promise<unknown> {
 		if (!this.sessionId) throw new Error("No active MCP session");
 
 		const res = await this.fetchFn(this.baseUrl, {
@@ -154,19 +154,25 @@ export class KeeperHubMcpClient {
 		});
 
 		if (res.status === 401) {
+			if (attempt >= 1) {
+				throw new Error("KeeperHub MCP error (401): unauthorized after session re-init");
+			}
 			this.logger.warn?.("[KeeperHub] Session unauthorized, re-initializing");
 			this.sessionId = null;
 			await this.ensureSession();
-			return this.postMcp(body);
+			return this.postMcp(body, attempt + 1);
 		}
 
 		if (res.status === 404) {
 			const text = await res.text().catch(() => "");
 			if (text.toLowerCase().includes("session")) {
+				if (attempt >= 1) {
+					throw new Error(`KeeperHub MCP error (404): ${text}`);
+				}
 				this.logger.warn?.("[KeeperHub] Session expired, re-initializing");
 				this.sessionId = null;
 				await this.ensureSession();
-				return this.postMcp(body);
+				return this.postMcp(body, attempt + 1);
 			}
 			throw new Error(`KeeperHub MCP error (404): ${text}`);
 		}

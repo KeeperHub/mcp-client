@@ -180,6 +180,41 @@ describe("KeeperHubMcpClient", () => {
 		).rejects.toThrow(/404/);
 	});
 
+	it("re-initializes at most once on a persistent 401, then throws", async () => {
+		const { fn, calls } = captureFetch([
+			() => jsonResponse({ result: {} }, { sessionId: "sess-old" }),
+			() => jsonResponse({ error: "unauthorized" }, { status: 401 }),
+			() => jsonResponse({ result: {} }, { sessionId: "sess-new" }),
+			() => jsonResponse({ error: "unauthorized" }, { status: 401 }),
+		]);
+
+		const client = new KeeperHubMcpClient({
+			apiKey: "kh_test",
+			logger: silentLogger,
+			fetchFn: fn,
+		});
+		await expect(client.callTool("list_workflows", {})).rejects.toThrow(/401/);
+		// initialize, tools/call (401), re-initialize, tools/call (401) -> stop. No loop.
+		expect(calls).toHaveLength(4);
+	});
+
+	it("re-initializes at most once on a persistent session 404, then throws", async () => {
+		const { fn, calls } = captureFetch([
+			() => jsonResponse({ result: {} }, { sessionId: "sess-old" }),
+			() => textResponse("session expired", { status: 404 }),
+			() => jsonResponse({ result: {} }, { sessionId: "sess-new" }),
+			() => textResponse("session expired", { status: 404 }),
+		]);
+
+		const client = new KeeperHubMcpClient({
+			apiKey: "kh_test",
+			logger: silentLogger,
+			fetchFn: fn,
+		});
+		await expect(client.callTool("list_workflows", {})).rejects.toThrow(/404/);
+		expect(calls).toHaveLength(4);
+	});
+
 	it("rejects empty api key", () => {
 		expect(
 			() =>

@@ -15,7 +15,6 @@ Both clients implement the same kernel:
 
 - MCP session bootstrap + re-init on `401`/`404`
 - `kh_` vs `wfb_` key disambiguation
-- Poll-to-terminal helper for async workflow execution
 - Single JSON-result unwrap
 
 ## Status
