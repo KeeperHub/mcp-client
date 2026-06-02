@@ -1,4 +1,4 @@
-# @keeperhub/mcp-client
+# @keeperhub/mcp
 
 Shared MCP client foundation for connecting agent frameworks to [KeeperHub](https://keeperhub.com).
 
