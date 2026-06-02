@@ -1,4 +1,30 @@
-// @keeperhub/mcp-client - shared MCP client foundation for KeeperHub framework adapters.
-// Scaffold only. The session bootstrap, key disambiguation, and poll-to-terminal kernel land here.
+export {
+	DEFAULT_MCP_URL,
+	MCP_PROTOCOL_VERSION,
+	KeeperHubMcpClient,
+	KeeperHubClient,
+	getClient,
+	type CallToolResult,
+	type ClientLogger,
+	type GetClientOptions,
+	type KeeperHubMcpClientOptions,
+	type KeeperHubOrgContext,
+} from "./client";
 
-export const VERSION = "0.0.0";
+export {
+	ENV_VAR_NAMES,
+	ORG_KEY_HINT,
+	SUPPORTED_ENV_VARS,
+	WFB_KEY_NOT_FOR_MCP_MESSAGE,
+	classifyApiKey,
+	getApiKeyKindWarning,
+	isLikelyValidApiKey,
+	isLikelyValidOrgApiKey,
+	isOrgApiKey,
+	maskApiKey,
+	resolveApiKey,
+	validateApiKeyForMcp,
+	type ApiKeyKind,
+	type ApiKeySources,
+	type SupportedEnvVar,
+} from "./keys";

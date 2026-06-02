@@ -4,13 +4,16 @@ build-backend = "hatchling.build"
 
 [project]
 name = "keeperhub-mcp-client"
-version = "0.0.0"
+version = "0.1.0"
 description = "Shared MCP client foundation for KeeperHub agent-framework adapters."
 readme = "README.md"
 license = "Apache-2.0"
-requires-python = ">=3.10"
+requires-python = ">=3.9"
 authors = [{ name = "KeeperHub" }]
-dependencies = ["mcp>=1.9.0"]
+dependencies = ["httpx>=0.27"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "httpx>=0.27"]
 
 [project.urls]
 Homepage = "https://keeperhub.com"
@@ -20,3 +23,7 @@ Issues = "https://github.com/KeeperHub/mcp-client/issues"
 
 [tool.hatch.build.targets.wheel]
 packages = ["keeperhub_mcp_client"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
