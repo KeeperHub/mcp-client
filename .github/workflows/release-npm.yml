@@ -7,7 +7,7 @@ name: release-npm
 # ONE-TIME SETUP (npm cannot trust a package that doesn't exist yet):
 #   1. Publish v1 manually once: `cd packages/mcp && npm publish`.
 #   2. On npmjs.com: package @keeperhub/mcp -> Settings -> Trusted Publisher ->
-#      GitHub Actions, org "KeeperHub", repo "mcp-client", workflow file "release-npm.yml".
+#      GitHub Actions, org "KeeperHub", repo "mcp", workflow file "release-npm.yml".
 
 on:
   push:

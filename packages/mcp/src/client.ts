@@ -60,7 +60,7 @@ export class KeeperHubMcpClient {
 		this.baseUrl = options.baseUrl ?? DEFAULT_MCP_URL;
 		this.clientInfo = options.clientInfo ?? {
 			name: "@keeperhub/mcp",
-			version: "0.1.0",
+			version: "0.1.1",
 		};
 		this.logger = options.logger ?? console;
 		this.fetchFn = options.fetchFn ?? fetch;
