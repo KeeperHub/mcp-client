@@ -8,7 +8,7 @@ This repo holds the small, framework-agnostic MCP kernel that framework adapters
 
 | Package | Language | Path | Registry |
 | -- | -- | -- | -- |
-| `@keeperhub/mcp-client` | TypeScript | `packages/mcp-client` | npm |
+| `@keeperhub/mcp` | TypeScript | `packages/mcp` | npm |
 | `keeperhub-mcp-client` | Python | `python` | PyPI |
 
 Both clients implement the same kernel:

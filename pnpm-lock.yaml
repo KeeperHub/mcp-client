@@ -8,7 +8,7 @@ importers:
 
   .: {}
 
-  packages/mcp-client:
+  packages/mcp:
     devDependencies:
       '@types/node':
         specifier: 24.1.0

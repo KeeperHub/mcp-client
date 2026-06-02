@@ -1,4 +1,4 @@
-# @keeperhub/mcp-client
+# @keeperhub/mcp
 
 Official TypeScript client for the KeeperHub MCP HTTP endpoint (`https://app.keeperhub.com/mcp`).
 
@@ -13,7 +13,7 @@ Official TypeScript client for the KeeperHub MCP HTTP endpoint (`https://app.kee
 ## Usage
 
 ```ts
-import { getClient, resolveApiKey } from "@keeperhub/mcp-client";
+import { getClient, resolveApiKey } from "@keeperhub/mcp";
 
 const apiKey = resolveApiKey({ env: process.env });
 if (!apiKey) throw new Error("KH_API_KEY not set");
@@ -29,8 +29,8 @@ const workflows = await client.callTool("list_workflows", {});
 
 ```bash
 pnpm install
-pnpm --filter @keeperhub/mcp-client build
-pnpm --filter @keeperhub/mcp-client test
+pnpm --filter @keeperhub/mcp build
+pnpm --filter @keeperhub/mcp test
 ```
 
 ## License
