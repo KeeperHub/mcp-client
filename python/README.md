@@ -4,6 +4,8 @@ Python MCP client for connecting agent frameworks (Hermes and others) to [Keeper
 
 The Python counterpart to [`@keeperhub/mcp`](https://www.npmjs.com/package/@keeperhub/mcp). Implements the same kernel: MCP session bootstrap + re-init on `401`/`404` (with retry cap), `kh_` vs `wfb_` key disambiguation, and single JSON-result unwrap.
 
+**PyPI:** [keeperhub-mcp](https://pypi.org/project/keeperhub-mcp/)
+
 ## Usage
 
 ```python
@@ -27,4 +29,4 @@ pytest
 
 ## License
 
-Apache-2.0 — see [LICENSE](./LICENSE).
+Apache-2.0 — see [LICENSE](../LICENSE) in the repo root.

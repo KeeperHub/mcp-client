@@ -9,7 +9,7 @@ This repo holds the small, framework-agnostic MCP kernel that framework adapters
 | Package | Language | Path | Registry |
 | -- | -- | -- | -- |
 | `@keeperhub/mcp` | TypeScript | `packages/mcp` | npm |
-| `keeperhub-mcp` | Python | `python` | PyPI |
+| `keeperhub-mcp` | Python | `python` | [PyPI](https://pypi.org/project/keeperhub-mcp/) |
 
 Both clients implement the same kernel:
 
@@ -19,7 +19,7 @@ Both clients implement the same kernel:
 
 ## Status
 
-**v0.1.1** — MCP HTTP transport implemented (session bootstrap, `tools/call`, 401/404 re-init with retry cap, API key helpers). `@keeperhub/mcp@0.1.1` on npm; `keeperhub-mcp@0.1.1` on PyPI. See [`.github/workflows`](.github/workflows) for release tags (`npm-v*`, `py-v*`).
+**v0.1.1** — MCP HTTP transport implemented (session bootstrap, `tools/call`, 401/404 re-init with retry cap, API key helpers). `@keeperhub/mcp@0.1.1` on npm; [`keeperhub-mcp@0.1.1`](https://pypi.org/project/keeperhub-mcp/) on PyPI. See [`.github/workflows`](.github/workflows) for release tags (`npm-v*`, `py-v*`).
 
 ## Where the plugins live
 
