@@ -24,6 +24,12 @@ Issues = "https://github.com/KeeperHub/mcp/issues"
 [tool.hatch.build.targets.wheel]
 packages = ["keeperhub_mcp_client"]
 
+[tool.hatch.build.targets.wheel.force-include]
+"../LICENSE" = "LICENSE"
+
+[tool.hatch.build.targets.sdist]
+include = ["../LICENSE"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 pythonpath = ["."]

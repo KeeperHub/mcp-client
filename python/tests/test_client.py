@@ -98,3 +98,58 @@ def test_401_triggers_reinitialize():
         assert phase["initialize"] == 2
     finally:
         c.close()
+
+
+def test_persistent_401_reinit_cap():
+    calls = {"n": 0}
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        body = json.loads(request.content.decode())
+        rid = body["id"]
+        calls["n"] += 1
+        if body["method"] == "initialize":
+            return httpx.Response(
+                200,
+                headers={"mcp-session-id": f"sess-{calls['n']}"},
+                json={"jsonrpc": "2.0", "id": rid, "result": {}},
+            )
+        if body["method"] == "tools/call":
+            return httpx.Response(401, text="unauthorized")
+        return httpx.Response(400)
+
+    transport = httpx.MockTransport(handler)
+    c = KeeperHubMcpClient("kh_test", http_client=httpx.Client(transport=transport, timeout=10.0))
+    try:
+        with pytest.raises(RuntimeError, match=r"401"):
+            c.call_tool("list_workflows", {})
+        # initialize, tools/call (401), re-initialize, tools/call (401) -> stop
+        assert calls["n"] == 4
+    finally:
+        c.close()
+
+
+def test_persistent_session_404_reinit_cap():
+    calls = {"n": 0}
+
+    def handler(request: httpx.Request) -> httpx.Response:
+        body = json.loads(request.content.decode())
+        rid = body["id"]
+        calls["n"] += 1
+        if body["method"] == "initialize":
+            return httpx.Response(
+                200,
+                headers={"mcp-session-id": f"sess-{calls['n']}"},
+                json={"jsonrpc": "2.0", "id": rid, "result": {}},
+            )
+        if body["method"] == "tools/call":
+            return httpx.Response(404, text="session expired")
+        return httpx.Response(400)
+
+    transport = httpx.MockTransport(handler)
+    c = KeeperHubMcpClient("kh_test", http_client=httpx.Client(transport=transport, timeout=10.0))
+    try:
+        with pytest.raises(RuntimeError, match=r"404"):
+            c.call_tool("list_workflows", {})
+        assert calls["n"] == 4
+    finally:
+        c.close()
