@@ -7,7 +7,7 @@ import json
 import httpx
 import pytest
 
-from keeperhub_mcp_client import (
+from keeperhub_mcp import (
     KeeperHubMcpClient,
     classify_api_key,
     reset_client_for_tests,
@@ -98,3 +98,27 @@ def test_401_triggers_reinitialize():
         assert phase["initialize"] == 2
     finally:
         c.close()
+
+
+def test_401_retry_cap_exhausted():
+    def handler(request: httpx.Request) -> httpx.Response:
+        body = json.loads(request.content.decode())
+        rid = body["id"]
+        if body["method"] == "initialize":
+            return httpx.Response(
+                200,
+                headers={"mcp-session-id": "sess"},
+                json={"jsonrpc": "2.0", "id": rid, "result": {}},
+            )
+        if body["method"] == "tools/call":
+            return httpx.Response(401, text="unauthorized")
+        return httpx.Response(400)
+
+    transport = httpx.MockTransport(handler)
+    c = KeeperHubMcpClient("kh_test", http_client=httpx.Client(transport=transport, timeout=10.0))
+    try:
+        with pytest.raises(RuntimeError, match="401.*after session re-init"):
+            c.call_tool("t", {})
+    finally:
+        c.close()
+        reset_client_for_tests()

@@ -1,13 +1,13 @@
-# keeperhub-mcp-client
+# keeperhub-mcp
 
-Python MCP client foundation for connecting agent frameworks (Hermes and others) to [KeeperHub](https://keeperhub.com).
+Python MCP client for connecting agent frameworks (Hermes and others) to [KeeperHub](https://keeperhub.com).
 
-The Python counterpart to [`@keeperhub/mcp`](https://www.npmjs.com/package/@keeperhub/mcp). Implements the same kernel: MCP session bootstrap + re-init on `401`/`404`, `kh_` vs `wfb_` key disambiguation, and single JSON-result unwrap.
+The Python counterpart to [`@keeperhub/mcp`](https://www.npmjs.com/package/@keeperhub/mcp). Implements the same kernel: MCP session bootstrap + re-init on `401`/`404` (with retry cap), `kh_` vs `wfb_` key disambiguation, and single JSON-result unwrap.
 
 ## Usage
 
 ```python
-from keeperhub_mcp_client import get_client, resolve_api_key
+from keeperhub_mcp import get_client, resolve_api_key
 
 api_key = resolve_api_key()
 if not api_key:
@@ -27,4 +27,4 @@ pytest
 
 ## License
 
-Apache-2.0
+Apache-2.0 — see [LICENSE](./LICENSE).
