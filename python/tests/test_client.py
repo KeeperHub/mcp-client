@@ -7,7 +7,7 @@ import json
 import httpx
 import pytest
 
-from keeperhub_mcp_client import (
+from keeperhub_mcp import (
     KeeperHubMcpClient,
     classify_api_key,
     reset_client_for_tests,

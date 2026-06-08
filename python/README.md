@@ -1,4 +1,4 @@
-# keeperhub-mcp-client
+# keeperhub-mcp
 
 Python MCP client foundation for connecting agent frameworks (Hermes and others) to [KeeperHub](https://keeperhub.com).
 
@@ -7,7 +7,7 @@ The Python counterpart to [`@keeperhub/mcp`](https://www.npmjs.com/package/@keep
 ## Usage
 
 ```python
-from keeperhub_mcp_client import get_client, resolve_api_key
+from keeperhub_mcp import get_client, resolve_api_key
 
 api_key = resolve_api_key()
 if not api_key:

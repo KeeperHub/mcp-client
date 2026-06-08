@@ -1,12 +1,12 @@
 name: release-pypi
 
-# Publishes keeperhub-mcp-client (Python) to PyPI via trusted publishing (OIDC).
+# Publishes keeperhub-mcp (Python) to PyPI via trusted publishing (OIDC).
 # Triggered by a Python release tag, e.g. `git tag py-v0.1.0 && git push origin py-v0.1.0`.
 #
 # ONE-TIME SETUP (PyPI supports pending publishers, so do this BEFORE the first release):
 #   On pypi.org: Your projects -> Publishing -> Add a pending publisher ->
-#     PyPI project name: keeperhub-mcp-client
-#     Owner: KeeperHub   Repository: mcp-client
+#     PyPI project name: keeperhub-mcp
+#     Owner: KeeperHub   Repository: mcp
 #     Workflow name: release-pypi.yml   Environment: pypi
 #   Create the matching `pypi` environment under repo Settings -> Environments.
 

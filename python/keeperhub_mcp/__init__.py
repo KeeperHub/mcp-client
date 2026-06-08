@@ -1,13 +1,13 @@
 """KeeperHub MCP HTTP client for Python integrators."""
 
-from keeperhub_mcp_client.client import (
+from keeperhub_mcp.client import (
     DEFAULT_MCP_URL,
     MCP_PROTOCOL_VERSION,
     KeeperHubMcpClient,
     get_client,
     reset_client_for_tests,
 )
-from keeperhub_mcp_client.keys import (
+from keeperhub_mcp.keys import (
     ENV_VAR_NAMES,
     ORG_KEY_HINT,
     SUPPORTED_ENV_VARS,
