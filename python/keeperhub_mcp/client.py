@@ -1,4 +1,4 @@
-"""KeeperHub MCP HTTP client (sync). Mirrors @keeperhub/mcp-client."""
+"""KeeperHub MCP HTTP client (sync). Mirrors @keeperhub/mcp."""
 
 from __future__ import annotations
 
@@ -9,13 +9,13 @@ from typing import Any
 
 import httpx
 
-from keeperhub_mcp_client.keys import classify_api_key, validate_api_key_for_mcp
+from keeperhub_mcp.keys import classify_api_key, validate_api_key_for_mcp
 
 logger = logging.getLogger(__name__)
 
 DEFAULT_MCP_URL = "https://app.keeperhub.com/mcp"
 MCP_PROTOCOL_VERSION = "2024-11-05"
-DEFAULT_CLIENT_NAME = "keeperhub-mcp-client"
+DEFAULT_CLIENT_NAME = "keeperhub-mcp"
 DEFAULT_CLIENT_VERSION = "0.1.0"
 
 
@@ -99,25 +99,31 @@ class KeeperHubMcpClient:
         self.session_id = sid
         logger.info("[KeeperHub] MCP session established")
 
-    def _post_mcp_unlocked(self, body: dict[str, Any]) -> Any:
+    def _post_mcp_unlocked(self, body: dict[str, Any], attempt: int = 0) -> Any:
         if not self.session_id:
             raise RuntimeError("No active MCP session")
         hdrs = {**self.headers_base(), "mcp-session-id": self.session_id}
         res = self._http.post(self.base_url, headers=hdrs, json=body)
 
         if res.status_code == 401:
+            if attempt >= 1:
+                raise RuntimeError(
+                    "KeeperHub MCP error (401): unauthorized after session re-init"
+                )
             logger.warning("[KeeperHub] Session unauthorized, re-initializing")
             self.session_id = None
             self._ensure_session_unlocked()
-            return self._post_mcp_unlocked(body)
+            return self._post_mcp_unlocked(body, attempt + 1)
 
         if res.status_code == 404:
             text = res.text or ""
             if "session" in text.lower():
+                if attempt >= 1:
+                    raise RuntimeError(f"KeeperHub MCP error (404): {text}")
                 logger.warning("[KeeperHub] Session expired, re-initializing")
                 self.session_id = None
                 self._ensure_session_unlocked()
-                return self._post_mcp_unlocked(body)
+                return self._post_mcp_unlocked(body, attempt + 1)
             raise RuntimeError(f"KeeperHub MCP error (404): {text}")
 
         if not res.is_success:

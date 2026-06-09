@@ -1,12 +1,12 @@
 name: release-pypi
 
-# Publishes keeperhub-mcp-client (Python) to PyPI via trusted publishing (OIDC).
+# Publishes keeperhub-mcp (Python) to PyPI via trusted publishing (OIDC).
 # Triggered by a Python release tag, e.g. `git tag py-v0.1.0 && git push origin py-v0.1.0`.
 #
 # ONE-TIME SETUP (PyPI supports pending publishers, so do this BEFORE the first release):
 #   On pypi.org: Your projects -> Publishing -> Add a pending publisher ->
-#     PyPI project name: keeperhub-mcp-client
-#     Owner: KeeperHub   Repository: mcp-client
+#     PyPI project name: keeperhub-mcp
+#     Owner: KeeperHub   Repository: mcp
 #     Workflow name: release-pypi.yml   Environment: pypi
 #   Create the matching `pypi` environment under repo Settings -> Environments.
 
@@ -25,6 +25,9 @@ concurrency:
 
 jobs:
   publish:
+    # Only publish from a py-v* tag. A manual workflow_dispatch (which can run
+    # from any branch) must not push a release to PyPI.
+    if: startsWith(github.ref, 'refs/tags/py-v')
     runs-on: ubuntu-latest
     environment: pypi
     permissions:
@@ -34,6 +37,16 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+      - name: Verify tag matches pyproject version
+        working-directory: python
+        run: |
+          tag="${GITHUB_REF_NAME#py-v}"
+          ver="$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml','rb'))['project']['version'])")"
+          echo "tag=$tag pyproject=$ver"
+          if [ "$tag" != "$ver" ]; then
+            echo "::error::tag py-v$tag does not match pyproject version $ver"
+            exit 1
+          fi
       - name: Build sdist and wheel
         working-directory: python
         run: |
