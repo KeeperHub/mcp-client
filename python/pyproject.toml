@@ -8,6 +8,7 @@ version = "0.1.0"
 description = "Shared MCP client foundation for KeeperHub agent-framework adapters."
 readme = "README.md"
 license = "Apache-2.0"
+license-files = ["LICENSE"]
 requires-python = ">=3.9"
 authors = [{ name = "KeeperHub" }]
 dependencies = ["httpx>=0.27"]
@@ -23,12 +24,6 @@ Issues = "https://github.com/KeeperHub/mcp/issues"
 
 [tool.hatch.build.targets.wheel]
 packages = ["keeperhub_mcp"]
-
-[tool.hatch.build.targets.wheel.force-include]
-"../LICENSE" = "LICENSE"
-
-[tool.hatch.build.targets.sdist]
-include = ["../LICENSE"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
