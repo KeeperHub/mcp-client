@@ -17,6 +17,10 @@ Both clients implement the same kernel:
 - `kh_` vs `wfb_` key disambiguation
 - Single JSON-result unwrap
 
+The Python package ships both `KeeperHubMcpClient` (sync) and
+`AsyncKeeperHubMcpClient` (asyncio), so adapters for async agent frameworks do not
+have to block the event loop on every MCP round trip.
+
 ## Status
 
 **v0.1.0** — MCP HTTP transport implemented (session bootstrap, `tools/call`, 401/404 re-init, API key helpers). Ready for first publish to npm and PyPI. See [`.github/workflows`](.github/workflows) for release tags (`npm-v*`, `py-v*`).

@@ -1,5 +1,10 @@
 """KeeperHub MCP HTTP client for Python integrators."""
 
+from keeperhub_mcp.async_client import (
+    AsyncKeeperHubMcpClient,
+    get_async_client,
+    reset_async_client_for_tests,
+)
 from keeperhub_mcp.client import (
     DEFAULT_MCP_URL,
     MCP_PROTOCOL_VERSION,
@@ -29,6 +34,7 @@ __version__ = "0.1.0"
 __all__ = [
     "DEFAULT_MCP_URL",
     "ENV_VAR_NAMES",
+    "AsyncKeeperHubMcpClient",
     "KeeperHubClient",
     "KeeperHubMcpClient",
     "MCP_PROTOCOL_VERSION",
@@ -38,11 +44,13 @@ __all__ = [
     "__version__",
     "classify_api_key",
     "get_api_key_kind_warning",
+    "get_async_client",
     "get_client",
     "is_likely_valid_api_key",
     "is_likely_valid_org_api_key",
     "is_org_api_key",
     "mask_api_key",
+    "reset_async_client_for_tests",
     "reset_client_for_tests",
     "resolve_api_key",
     "validate_api_key_for_mcp",
