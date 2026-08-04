@@ -5,6 +5,7 @@ export {
 	KeeperHubClient,
 	getClient,
 	type CallToolResult,
+	type McpTool,
 	type ClientLogger,
 	type GetClientOptions,
 	type KeeperHubMcpClientOptions,
