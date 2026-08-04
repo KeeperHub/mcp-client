@@ -15,6 +15,13 @@ export interface KeeperHubOrgContext {
 	workflowCount: number;
 }
 
+/** A tool as advertised by the server's `tools/list`. */
+export interface McpTool {
+	name: string;
+	description?: string;
+	inputSchema?: unknown;
+}
+
 export interface CallToolResult {
 	content?: Array<{ type: string; text: string }>;
 	isError?: boolean;
@@ -90,6 +97,29 @@ export class KeeperHubMcpClient {
 		}
 
 		return result;
+	}
+
+	/**
+	 * List the tools this server advertises.
+	 *
+	 * Discovery is what lets an adapter check a capability exists before relying on
+	 * it, instead of hardcoding tool names and failing later.
+	 */
+	async listTools(): Promise<McpTool[]> {
+		await this.ensureSession();
+		const result = (await this.postMcp({
+			jsonrpc: "2.0",
+			id: ++this.requestId,
+			method: "tools/list",
+		})) as { tools?: McpTool[] } | undefined;
+
+		return result?.tools ?? [];
+	}
+
+	/** Convenience: does the server expose this tool? */
+	async hasTool(name: string): Promise<boolean> {
+		const tools = await this.listTools();
+		return tools.some((t) => t.name === name);
 	}
 
 	async refreshOrgContext(): Promise<KeeperHubOrgContext> {
